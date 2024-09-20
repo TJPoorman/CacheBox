@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Description>Common interfaces, extensions used for adding simplified caching services to applications</Description>
+		<ApplicationVersion>1.0.*</ApplicationVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageOutputPath>..\packages</PackageOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="SimpleCache.LiteDb" />
+		<InternalsVisibleTo Include="SimpleCache.Memory" />
+		<InternalsVisibleTo Include="SimpleCache.Redis" />
+		<InternalsVisibleTo Include="SimpleCache.Sqlite" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+	</ItemGroup>
+
+</Project>
