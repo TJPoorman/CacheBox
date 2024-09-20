@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace SimpleCache.Sqlite;
+namespace CoreCache.Sqlite;
 
 public class SqliteCacheProvider : ICacheProvider
 {

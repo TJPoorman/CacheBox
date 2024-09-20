@@ -4,14 +4,18 @@
 		<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Description>Implementation of ICacheProvider used for adding In Memory caching service to applications</Description>
+		<Description>Implementation of ICacheProvider used for adding LiteDb caching service to applications</Description>
 		<ApplicationVersion>1.0.*</ApplicationVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageOutputPath>..\packages</PackageOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\SimpleCache\SimpleCache.csproj" />
+		<PackageReference Include="LiteDB" Version="5.0.21" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CoreCache\CoreCache.csproj" />
 	</ItemGroup>
 
 </Project>

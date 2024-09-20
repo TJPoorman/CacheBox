@@ -1,4 +1,4 @@
-﻿namespace SimpleCache;
+﻿namespace CoreCache;
 
 internal class CacheRecord
 {

@@ -1,4 +1,4 @@
-﻿namespace SimpleCache;
+﻿namespace CoreCache;
 
 public interface ICacheProvider
 {
