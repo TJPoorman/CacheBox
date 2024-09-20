@@ -11,10 +11,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="CoreCache.LiteDb" />
-		<InternalsVisibleTo Include="CoreCache.Memory" />
-		<InternalsVisibleTo Include="CoreCache.Redis" />
-		<InternalsVisibleTo Include="CoreCache.Sqlite" />
+		<InternalsVisibleTo Include="CacheBox.LiteDb" />
+		<InternalsVisibleTo Include="CacheBox.Memory" />
+		<InternalsVisibleTo Include="CacheBox.Redis" />
+		<InternalsVisibleTo Include="CacheBox.Sqlite" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace CoreCache;
+﻿namespace CacheBox;
 
 internal static class CacheConstants
 {

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace CoreCache.LiteDb;
+namespace CacheBox.LiteDb;
 
 public class LiteDbCacheProvider : ICacheProvider
 {

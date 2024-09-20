@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Text.Json;
 
-namespace CoreCache.Memory;
+namespace CacheBox.Memory;
 
 public class MemoryCacheProvider : ICacheProvider
 {

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 using System.Text.Json;
 
-namespace CoreCache.Redis;
+namespace CacheBox.Redis;
 
 public class RedisCacheProvider : ICacheProvider
 {

@@ -1,4 +1,4 @@
-﻿namespace CoreCache;
+﻿namespace CacheBox;
 
 public interface ICacheProvider
 {
