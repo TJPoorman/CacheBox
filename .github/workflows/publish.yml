@@ -72,22 +72,25 @@ jobs:
 
       # Restore dependencies
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ${{ matrix.project-path }}
 
       # Build the project targeting both .NET 6.0 and .NET 8.0
       - name: Build project
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build ${{ matrix.project-path }} --configuration Release --no-restore
 
       # Run tests (optional)
       - name: Run tests
-        run: dotnet test --configuration Release --no-build --verbosity normal
+        run: dotnet test ${{ matrix.project-path }} --configuration Release --no-build --verbosity normal
 
       # Pack the project to create a NuGet package
       - name: Pack NuGet package
-        run: dotnet pack --configuration Release --no-build --output ./nupkg
+        run: dotnet pack ${{ matrix.project-path }} --configuration Release --no-build --output ./nupkg
 
       # Publish to NuGet
       - name: Publish to NuGet
-        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          for pkg in ./nupkgs/*.nupkg; do
+            dotnet nuget push "$pkg" --api-key $NUGET_KEY --source https://api.nuget.org/v3/index.json
+          done
