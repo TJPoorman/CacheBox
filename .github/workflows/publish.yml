@@ -38,6 +38,7 @@ jobs:
 
       # Increment the version number in the project files
       - name: Increment version
+        id: increment_version
         run: |
           # Load current version
           version=$(grep -oPm1 "(?<=<Version>)[^<]+" ${{ matrix.project-path }})
@@ -52,13 +53,16 @@ jobs:
           # Update .csproj file
           sed -i "s/<Version>.*<\/Version>/<Version>$new_version<\/Version>/" ${{ matrix.project-path }}
 
+          echo "New version: $new_version"
+          echo "::set-output name=new_version::$new_version"
+
       # Commit the version change back to the repository
       - name: Commit version changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add ${{ matrix.project-path }}
-          git commit -m "Bump version to $new_version"
+          git commit -m "Bump version to ${{ steps.increment_version.outputs.new_version }}"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
