@@ -59,8 +59,8 @@ jobs:
       # Commit the version change back to the repository
       - name: Commit version changes
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config --global user.name 'TJPoorman'
+          git config --global user.email 'tjpoorman@users.noreply.github.com'
           git add ${{ matrix.project-path }}
           git commit -m "Bump version to ${{ steps.increment_version.outputs.new_version }}"
           git push
