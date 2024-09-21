@@ -10,87 +10,41 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        dotnet-version: [6.0, 8.0]
-        project-path: 
-          - 'CacheBox/CacheBox.csproj'
-          - 'CacheBox.LiteDb/CacheBox.LiteDb.csproj'
-          - 'CacheBox.Memory/CacheBox.Memory.csproj'
-          - 'CacheBox.Redis/CacheBox.Redis.csproj'
-          - 'CacheBox.Sqlite/CacheBox.Sqlite.csproj'
-
     steps:
       # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.MY_GITHUB_TOKEN }}
 
-      # Check if the commit message indicates it's from a version bump
-      - name: Skip if version bump
-        if: contains(github.event.head_commit.message, 'Bump version to')
-        run: exit 0
-
-      # Set up .NET Core SDK for .NET 6.0 and >NET 8.0
-      - name: Set up .NET
+      # Set up .NET Core SDK for .NET 6.0
+      - name: Set up .NET 6.0
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: '6.x'
 
-      # Increment the version number in the project files
-      - name: Increment version
-        id: increment_version
-        run: |
-          # Load current version
-          version=$(grep -oPm1 "(?<=<Version>)[^<]+" ${{ matrix.project-path }})
-
-          # Split version into components
-          IFS='.' read -r major minor patch <<< "$version"
-          
-          # Increment the patch version
-          patch=$((patch + 1))
-          new_version="$major.$minor.$patch"
-
-          # Update .csproj file
-          sed -i "s/<Version>.*<\/Version>/<Version>$new_version<\/Version>/" ${{ matrix.project-path }}
-
-          echo "New version: $new_version"
-          echo "::set-output name=new_version::$new_version"
-
-      # Commit the version change back to the repository
-      - name: Commit version changes
-        run: |
-          git config --global user.name 'TJPoorman'
-          git config --global user.email 'tjpoorman@users.noreply.github.com'
-          git add ${{ matrix.project-path }}
-          git commit -m "Bump version to ${{ steps.increment_version.outputs.new_version }}"
-          git pull
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      # Set up .NET Core SDK for .NET 8.0
+      - name: Set up .NET 8.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'
 
       # Restore dependencies
       - name: Restore dependencies
-        run: dotnet restore ${{ matrix.project-path }}
+        run: dotnet restore
 
       # Build the project targeting both .NET 6.0 and .NET 8.0
-      - name: Build project
-        run: dotnet build ${{ matrix.project-path }} --configuration Release --no-restore
+      - name: Build the project
+        run: dotnet build --configuration Release --no-restore
 
       # Run tests (optional)
       - name: Run tests
-        run: dotnet test ${{ matrix.project-path }} --configuration Release --no-build --verbosity normal
+        run: dotnet test --no-build --verbosity normal
 
       # Pack the project to create a NuGet package
       - name: Pack NuGet package
-        run: dotnet pack ${{ matrix.project-path }} --configuration Release --no-build --output ./nupkg
+        run: dotnet pack --configuration Release --no-build --output ./nupkg
 
       # Publish to NuGet
       - name: Publish to NuGet
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: |
-          for pkg in ./nupkgs/*.nupkg; do
-            dotnet nuget push "$pkg" --api-key $NUGET_KEY --source https://api.nuget.org/v3/index.json
-          done
