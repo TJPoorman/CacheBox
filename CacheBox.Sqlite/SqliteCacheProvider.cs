@@ -18,7 +18,7 @@ public class SqliteCacheProvider : ICacheProvider
     public bool IsConnected => _connection is not null;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqliteCacheProvider" class./>
+    /// Initializes a new instance of the <see cref="SqliteCacheProvider"/> class.
     /// This constructor is intended for use by Dependency Injection and should be used in conjunction with the
     /// <see cref="StartupExtensions.AddCacheProvider{TProvider}(Microsoft.Extensions.Hosting.IHostApplicationBuilder)"/> method and not called directly.
     /// </summary>

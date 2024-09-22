@@ -21,7 +21,7 @@ public class MemoryCacheProvider : ICacheProvider
     public bool IsConnected => _collection is not null;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MemoryCacheProvider" class./>
+    /// Initializes a new instance of the <see cref="MemoryCacheProvider"/> class.
     /// This constructor is intended for use by Dependency Injection and should be used in conjunction with the
     /// <see cref="StartupExtensions.AddCacheProvider{TProvider}(Microsoft.Extensions.Hosting.IHostApplicationBuilder)"/> method and not called directly.
     /// </summary>

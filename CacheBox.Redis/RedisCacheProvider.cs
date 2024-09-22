@@ -19,7 +19,7 @@ public class RedisCacheProvider : ICacheProvider
     public bool IsConnected => _database is not null;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RedisCacheProvider" class./>
+    /// Initializes a new instance of the <see cref="RedisCacheProvider"/> class.
     /// This constructor is intended for use by Dependency Injection and should be used in conjunction with the
     /// <see cref="StartupExtensions.AddCacheProvider{TProvider}(Microsoft.Extensions.Hosting.IHostApplicationBuilder)"/> method and not called directly.
     /// </summary>
