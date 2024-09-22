@@ -1,9 +1,9 @@
 name: Publish NuGet Package
 
 on:
-  push:
-    branches:
-      - master
+  release:
+    types:
+      - published
   workflow_dispatch: # Allows manual trigger from GitHub Actions UI
 
 jobs:
