@@ -4,14 +4,29 @@ using Microsoft.Extensions.Logging;
 
 namespace CacheBox.Sqlite;
 
+/// <inheritdoc/>
+/// <remarks>
+/// This implementation uses Sqlite as the storage for cached items.
+/// </remarks>
 public class SqliteCacheProvider : ICacheProvider
 {
     private readonly ILogger<SqliteCacheProvider> _logger;
     private readonly CacheProviderConfig _config;
     private readonly SqliteConnection? _connection;
 
+    /// <inheritdoc/>
     public bool IsConnected => _connection is not null;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SqliteCacheProvider" class./>
+    /// This constructor is intended for use by Dependency Injection and should be used in conjunction with the
+    /// <see cref="StartupExtensions.AddCacheProvider{TProvider}(Microsoft.Extensions.Hosting.IHostApplicationBuilder)"/> method and not called directly.
+    /// </summary>
+    /// <param name="config">The application's configuration settings.</param>
+    /// <param name="logger">The logger instance for logging cache operations.</param>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when the configuration of the cache provider is not provided or is invalid.
+    /// </exception>
     public SqliteCacheProvider(IConfiguration config, ILogger<SqliteCacheProvider> logger)
     {
         ArgumentNullException.ThrowIfNull(config);
@@ -45,8 +60,10 @@ public class SqliteCacheProvider : ICacheProvider
         }
     }
 
+    /// <inheritdoc/>
     public async Task<string?> GetAsync(string key, string? callerPrefix = null) => await GetAsync<string>(key, callerPrefix);
 
+    /// <inheritdoc/>
     public async Task<T?> GetAsync<T>(string key, string? callerPrefix = null)
     {
         ArgumentNullException.ThrowIfNull(key);
@@ -76,6 +93,7 @@ public class SqliteCacheProvider : ICacheProvider
         return tVal;
     }
 
+    /// <inheritdoc/>
     public async Task<bool> RemoveAsync(string key, string? callerPrefix = null)
     {
         ArgumentNullException.ThrowIfNull(key);
@@ -90,8 +108,10 @@ public class SqliteCacheProvider : ICacheProvider
         return true;
     }
 
+    /// <inheritdoc/>
     public async Task SetAsync<T>(string key, T value, string? callerPrefix = null) => await SetAsync<T>(key, value, _config.TimeoutTimeSpan, callerPrefix);
 
+    /// <inheritdoc/>
     public async Task SetAsync<T>(string key, T value, TimeSpan? timeout, string? callerPrefix = null)
     {
         ArgumentNullException.ThrowIfNull(key);

@@ -7,6 +7,15 @@ namespace CacheBox;
 
 public static class StartupExtensions
 {
+    /// <summary>
+    /// Adds a caching provider to the application's dependency injection container.
+    /// </summary>
+    /// <typeparam name="TProvider">The type of the caching provider to add, which must implement <see cref="ICacheProvider"/>.</typeparam>
+    /// <param name="builder">The <see cref="IHostApplicationBuilder"/> instance to which the caching provider is added.</param>
+    /// <returns>The updated <see cref="IHostApplicationBuilder"/> instance.</returns>
+    /// <remarks>
+    /// This method registers the specified caching provider type <typeparamref name="TProvider"/> as a singleton in the service collection.
+    /// </remarks>
     public static IHostApplicationBuilder AddCacheProvider<TProvider>(this IHostApplicationBuilder builder)
         where TProvider : class, ICacheProvider
     {
@@ -39,5 +48,5 @@ public static class StartupExtensions
         return builder;
     }
 
-    public static string IfNotNull(this string input, string output) => input is null ? string.Empty : output;
+    internal static string IfNotNull(this string input, string output) => input is null ? string.Empty : output;
 }
