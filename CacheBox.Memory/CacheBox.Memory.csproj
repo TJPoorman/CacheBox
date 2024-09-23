@@ -8,13 +8,17 @@
 		<Version>1.0.3</Version>
 		<PackageProjectUrl>https://github.com/TJPoorman/CacheBox</PackageProjectUrl>
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-		<PackageReadmeFile>..\README.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Copyright>Copyright (c) TJPoorman 2024</Copyright>
 		<PackageTags>cache;caching;distributedcache;performance;dataaccess;memory</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\CacheBox\CacheBox.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 </Project>
