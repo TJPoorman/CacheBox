@@ -5,9 +5,12 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Description>Common interfaces, extensions used for adding simplified caching services to applications</Description>
-		<Version>1.0.2</Version>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<PackageOutputPath>..\packages</PackageOutputPath>
+		<Version>1.0.3</Version>
+		<PackageProjectUrl>https://github.com/TJPoorman/CacheBox</PackageProjectUrl>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<PackageReadmeFile>..\README.md</PackageReadmeFile>
+		<Copyright>Copyright (c) TJPoorman 2024</Copyright>
+		<PackageTags>cache;caching;distributedcache;performance;dataaccess</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
