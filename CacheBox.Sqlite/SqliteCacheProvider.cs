@@ -76,6 +76,7 @@ public class SqliteCacheProvider : ICacheProvider
         command.Parameters.AddWithValue("$key", fullKey);
         using var reader = await command.ExecuteReaderAsync();
         if (!reader.HasRows) return default;
+        if (!reader.Read()) return default;
 
         CacheRecord value = new(reader.GetString(0), reader.GetString(1), DateTimeOffset.Parse(reader.GetString(2)));
         if (value is null || value.ValidUntil < DateTimeOffset.UtcNow)
@@ -127,7 +128,7 @@ public class SqliteCacheProvider : ICacheProvider
         var command = _connection.CreateCommand();
         command.CommandText = "SELECT COUNT(*) FROM cache WHERE Key = $key";
         command.Parameters.AddWithValue("$key", fullKey);
-        bool keyExists = ((int?)await command.ExecuteScalarAsync()) > 0;
+        bool keyExists = ((long?)await command.ExecuteScalarAsync()) > 0;
         timeout ??= TimeSpan.MaxValue;
         string dbVal;
 
